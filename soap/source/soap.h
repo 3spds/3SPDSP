@@ -14,6 +14,7 @@ public:
     Soap();
     ~Soap();
     void calcCoefs();
+    void calcCoefsAP();
     void init();
     void freeBuffers();
     void clearBuffers();

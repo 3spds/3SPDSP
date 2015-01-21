@@ -42,6 +42,31 @@ void Soap::calcCoefs()
     sinw0 = sin(w0);
     alpha = sinw0*0.5*rq;
 
+    b0 = rq*alpha;
+    b1 = 0;
+    b2 = -1*rq*alpha;
+
+    a0 = 1.0+alpha;
+    a1 = -2.0*cosw0;
+    a2 = 1.0-alpha;
+    ia0 = 1.0/a0;
+
+    ffCoef[0] = b0 * ia0;
+    ffCoef[1] = b1 * ia0;
+    ffCoef[2] = b2 * ia0;
+    fbCoef[0] = 1.0;
+    fbCoef[1] = a1 * ia0;
+    fbCoef[2] = a2 * ia0;
+}
+
+void Soap::calcCoefsAP()
+{
+    double cosw0, sinw0, alpha, b0, b1, b2, a0, a1, a2, ia0;
+
+    cosw0 = cos(w0);
+    sinw0 = sin(w0);
+    alpha = sinw0*0.5*rq;
+
     b0 = 1.0-alpha;
     b1 = -2.0*cosw0;
     b2 = 1.0+alpha;
@@ -54,7 +79,7 @@ void Soap::calcCoefs()
     ffCoef[0] = b0 * ia0;
     ffCoef[1] = b1 * ia0;
     ffCoef[2] = b2 * ia0;
-    fbCoef[0] = 1;
+    fbCoef[0] = 1.0;
     fbCoef[1] = a1 * ia0;
     fbCoef[2] = a2 * ia0;
 }
@@ -74,8 +99,8 @@ void Soap::apply(float* signal)
     fbBuf[bufferIndex] = ffCoef[0] * ffBuf[bufferIndex]
         + ffCoef[1] * ffBuf[(bufferSize + bufferIndex - 1)%bufferSize]
         + ffCoef[2] * ffBuf[(bufferSize + bufferIndex - 2)%bufferSize]
-        + fbCoef[1] * fbBuf[(bufferSize + bufferIndex - 1)%bufferSize]
-        + fbCoef[2] * fbBuf[(bufferSize + bufferIndex - 2)%bufferSize];
+        - fbCoef[1] * fbBuf[(bufferSize + bufferIndex - 1)%bufferSize]
+        - fbCoef[2] * fbBuf[(bufferSize + bufferIndex - 2)%bufferSize];
     dsignal = fbBuf[bufferIndex];
     *signal = (float)dsignal;
     bufferIndex ++;
