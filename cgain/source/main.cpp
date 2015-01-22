@@ -23,13 +23,18 @@ int main()
     float signal = 0.0;
     float out = 0.0;
     TwoPoleReal* filter = new TwoPoleReal;
+    TwoZeroReal* filter0 = new TwoZeroReal;
     filter->init();
-    filter->setCoefs(1, (double)(M_PI/2));
+    filter0->init();
+    filter->setCoefs(1, (double)(8/M_PI));
+    filter0->setCoefs(1, (double)(M_PI/8));
     while(reps--)
     {
         signal = impulse[LENGTH-1-reps];
         filter->apply(&signal);
-        cout<<signal<<endl;
+        filter0->apply(&signal);
+        out = signal;
+        cout<<out<<endl;
     }
     return 0;
 }

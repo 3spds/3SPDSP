@@ -8,12 +8,11 @@ jm
 
 class TwoPoleReal
 {
-public:
     std::complex<double> fbBuf;
     std::complex<double> fbCoef;
     double theta;
     double rho;
-
+public:
     TwoPoleReal();
     ~TwoPoleReal();
     void init();
@@ -24,18 +23,21 @@ public:
     void setRho(double pRho);
     void apply(float* signal);
 };
-/*
+
 class TwoZeroReal
 {
-public:
-    complex<double> ffBuf;
-    complex<double> ffCoef;
+    std::complex<double> ffBuf;
+    std::complex<double> ffCoef;
     double theta;
     double rho;
-    TwoZero();
-    ~TwoZero();
+public:
+    TwoZeroReal();
+    ~TwoZeroReal();
     void init();
+    void setCoefs(double pRho, double pTheta);
+    double getTheta();
+    double getRho();
+    void setTheta(double pTheta);
+    void setRho(double pRho);
     void apply(float* signal);
 };
-
-*/

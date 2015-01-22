@@ -7,6 +7,8 @@ jm
 
 using namespace std;
 
+//--- TwoPoleReal
+
 TwoPoleReal::TwoPoleReal()
 {
     TwoPoleReal::init();
@@ -60,3 +62,56 @@ void TwoPoleReal::apply(float* signal)
 }
 
 
+//----TwoZeroReal
+
+TwoZeroReal::TwoZeroReal()
+{
+    TwoZeroReal::init();
+}
+
+TwoZeroReal::~TwoZeroReal()
+{
+}
+
+void TwoZeroReal::init()
+{
+    setCoefs(0.0, 0.0);
+    ffBuf = polar(0.0, 0.0);
+}
+
+void TwoZeroReal::setCoefs(double pRho, double pTheta)
+{
+    theta = pTheta;
+    rho = pRho;
+    ffCoef = polar(rho, theta);
+}
+
+void TwoZeroReal::setTheta(double pTheta)
+{
+    theta = pTheta;
+    ffCoef = polar(rho, theta);
+}
+
+void TwoZeroReal::setRho(double pRho)
+{
+    rho = pRho;
+    ffCoef = polar(rho, theta);
+}
+
+double TwoZeroReal::getTheta()
+{
+    return this->theta;
+}
+
+double TwoZeroReal::getRho()
+{
+    return this->rho;
+}
+
+void TwoZeroReal::apply(float* signal)
+{
+    complex<double> dsignal(*signal, 0.0);
+    *signal = (float) real(dsignal + ffBuf);
+    ffBuf = *signal;
+    ffBuf *= ffCoef;
+}
