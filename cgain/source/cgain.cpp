@@ -7,111 +7,111 @@ jm
 
 using namespace std;
 
-//--- TwoPoleReal
+//--- OnePoleComplex
 
-TwoPoleReal::TwoPoleReal()
+OnePoleComplex::OnePoleComplex()
 {
-    TwoPoleReal::init();
+    OnePoleComplex::init();
 }
 
-TwoPoleReal::~TwoPoleReal()
+OnePoleComplex::~OnePoleComplex()
 {
 }
 
-void TwoPoleReal::init()
+void OnePoleComplex::init()
 {
     setCoefs(0.0, 0.0);
     fbBuf = polar(0.0, 0.0);
 }
 
-void TwoPoleReal::setCoefs(double pRho, double pTheta)
+void OnePoleComplex::setCoefs(double pRho, double pTheta)
 {
     theta = pTheta;
     rho = pRho;
     fbCoef = polar(rho, theta);
 }
 
-void TwoPoleReal::setTheta(double pTheta)
+void OnePoleComplex::setTheta(double pTheta)
 {
     theta = pTheta;
     fbCoef = polar(rho, theta);
 }
 
-void TwoPoleReal::setRho(double pRho)
+void OnePoleComplex::setRho(double pRho)
 {
     rho = pRho;
     fbCoef = polar(rho, theta);
 }
 
-double TwoPoleReal::getTheta()
+double OnePoleComplex::getTheta()
 {
     return this->theta;
 }
 
-double TwoPoleReal::getRho()
+double OnePoleComplex::getRho()
 {
     return this->rho;
 }
 
-void TwoPoleReal::apply(float* signal)
+void OnePoleComplex::apply(complex<double>* signal)
 {
-    complex<double> dsignal(*signal, 0.0);
+    complex<double> dsignal = *signal;
     fbBuf *= fbCoef;
     fbBuf += dsignal;
-    *signal = (float) real(fbBuf);
+    *signal = fbBuf;
 }
 
 
-//----TwoZeroReal
+//----OneZeroComplex
 
-TwoZeroReal::TwoZeroReal()
+OneZeroComplex::OneZeroComplex()
 {
-    TwoZeroReal::init();
+    OneZeroComplex::init();
 }
 
-TwoZeroReal::~TwoZeroReal()
+OneZeroComplex::~OneZeroComplex()
 {
 }
 
-void TwoZeroReal::init()
+void OneZeroComplex::init()
 {
     setCoefs(0.0, 0.0);
     ffBuf = polar(0.0, 0.0);
 }
 
-void TwoZeroReal::setCoefs(double pRho, double pTheta)
+void OneZeroComplex::setCoefs(double pRho, double pTheta)
 {
     theta = pTheta;
     rho = pRho;
-    ffCoef = polar(1.0f/rho, 1.0f/theta);
+    ffCoef = polar(rho, theta);
 }
 
-void TwoZeroReal::setTheta(double pTheta)
+void OneZeroComplex::setTheta(double pTheta)
 {
     theta = pTheta;
-    ffCoef = polar(1.0f/rho, 1.0f/theta);
+    ffCoef = polar(rho, theta);
 }
 
-void TwoZeroReal::setRho(double pRho)
+void OneZeroComplex::setRho(double pRho)
 {
     rho = pRho;
-    ffCoef = polar(1.0f/rho, 1.0f/theta);
+    ffCoef = polar(rho, theta);
 }
 
-double TwoZeroReal::getTheta()
+double OneZeroComplex::getTheta()
 {
     return this->theta;
 }
 
-double TwoZeroReal::getRho()
+double OneZeroComplex::getRho()
 {
     return this->rho;
 }
 
-void TwoZeroReal::apply(float* signal)
+void OneZeroComplex::apply(complex<double>* signal)
 {
-    complex<double> dsignal(*signal, 0.0);
-    *signal = (float) real(dsignal + ffBuf);
-    ffBuf = *signal;
-    ffBuf *= ffCoef;
+    complex<double> dsignal = *signal;
+    *signal = dsignal - ffBuf;
+    ffBuf = dsignal;
+    ffBuf *= conj(ffCoef);
 }

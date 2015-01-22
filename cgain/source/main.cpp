@@ -14,20 +14,20 @@ using namespace std;
 int main()
 {
     int reps = LENGTH;
-    float impulse[LENGTH];
+    complex<double> impulse[LENGTH];
     for(int i = 0; i < LENGTH; i++)
     {
-        impulse[i] = 0.0f;
+        impulse[i] = complex<double>(0.0, 0.0);
     }
-    impulse[0] = 1.0f;
-    float signal = 0.0;
-    float out = 0.0;
-    TwoPoleReal* filter = new TwoPoleReal;
-    TwoZeroReal* filter0 = new TwoZeroReal;
+    impulse[0] = complex<double>(0.707, 0.707);
+    complex<double> signal = 0.0;
+    complex<double> out = 0.0;
+    OnePoleComplex* filter = new OnePoleComplex;
+    OneZeroComplex* filter0 = new OneZeroComplex;
     filter->init();
     filter0->init();
-    filter->setCoefs(1, (double)(M_PI/8));
-    filter0->setCoefs(1, (double)(M_PI/8));
+    filter->setCoefs(1.0, (double)(M_PI/8));
+    filter0->setCoefs(1.0, (double)(-M_PI/8));
     while(reps--)
     {
         signal = impulse[LENGTH-1-reps];

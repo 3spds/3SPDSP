@@ -6,38 +6,38 @@ jm
 #include <complex>
 #include <cmath>
 
-class TwoPoleReal
+class OnePoleComplex
 {
     std::complex<double> fbBuf;
     std::complex<double> fbCoef;
     double theta;
     double rho;
 public:
-    TwoPoleReal();
-    ~TwoPoleReal();
+    OnePoleComplex();
+    ~OnePoleComplex();
     void init();
     void setCoefs(double pRho, double pTheta);
     double getTheta();
     double getRho();
     void setTheta(double pTheta);
     void setRho(double pRho);
-    void apply(float* signal);
+    void apply(std::complex<double>* signal);
 };
 
-class TwoZeroReal
+class OneZeroComplex
 {
     std::complex<double> ffBuf;
     std::complex<double> ffCoef;
     double theta;
     double rho;
 public:
-    TwoZeroReal();
-    ~TwoZeroReal();
+    OneZeroComplex();
+    ~OneZeroComplex();
     void init();
     void setCoefs(double pRho, double pTheta);
     double getTheta();
     double getRho();
     void setTheta(double pTheta);
     void setRho(double pRho);
-    void apply(float* signal);
+    void apply(std::complex<double>* signal);
 };
