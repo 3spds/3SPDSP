@@ -41,3 +41,20 @@ public:
     void setRho(double pRho);
     void apply(std::complex<double>* signal);
 };
+
+class TwoPoleComplex
+{
+    OnePoleComplex poles[2];
+    double theta;
+    double rho;
+public:
+    TwoPoleComplex();
+    ~TwoPoleComplex();
+    void init();
+    void setCoefs(double pRho, double pTheta);
+    double getTheta();
+    double getRho();
+    void setTheta(double pTheta);
+    void setRho(double pRho);
+    void apply(std::complex<double>* signal);
+};
