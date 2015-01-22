@@ -83,19 +83,19 @@ void TwoZeroReal::setCoefs(double pRho, double pTheta)
 {
     theta = pTheta;
     rho = pRho;
-    ffCoef = polar(rho, theta);
+    ffCoef = polar(1.0f/rho, 1.0f/theta);
 }
 
 void TwoZeroReal::setTheta(double pTheta)
 {
     theta = pTheta;
-    ffCoef = polar(rho, theta);
+    ffCoef = polar(1.0f/rho, 1.0f/theta);
 }
 
 void TwoZeroReal::setRho(double pRho)
 {
     rho = pRho;
-    ffCoef = polar(rho, theta);
+    ffCoef = polar(1.0f/rho, 1.0f/theta);
 }
 
 double TwoZeroReal::getTheta()

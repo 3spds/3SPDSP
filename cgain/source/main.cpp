@@ -26,7 +26,7 @@ int main()
     TwoZeroReal* filter0 = new TwoZeroReal;
     filter->init();
     filter0->init();
-    filter->setCoefs(1, (double)(8/M_PI));
+    filter->setCoefs(1, (double)(M_PI/8));
     filter0->setCoefs(1, (double)(M_PI/8));
     while(reps--)
     {
