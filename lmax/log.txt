@@ -1,0 +1,29 @@
+1 1 7 1 1 6 7 6 2 7 
+i=0
+j=1
+smaller than neighbor
+i=1
+j=1
+smaller than neighbor
+i=2
+j=1
+bigger
+neighborhood exhausted
+i=4
+j=1
+smaller than neighbor
+i=5
+j=1
+smaller than neighbor
+i=6
+j=1
+bigger
+neighborhood exhausted
+i=8
+j=1
+smaller than neighbor
+i=9
+j=1
+bigger
+neighborhood exhausted
+0 0 1 0 0 0 1 0 0 1 
