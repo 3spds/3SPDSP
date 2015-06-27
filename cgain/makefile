@@ -1,5 +1,5 @@
 cgain: ./source/cgain.cpp ./source/main.cpp
-	g++ -Wall ./source/main.cpp -o ./build/cgain
+	g++ -Wall ./source/cgain.cpp ./source/main.cpp -o ./build/cgain
 
 clean: 
-	rm -f ./build/soap
+	rm -f ./build/cgain

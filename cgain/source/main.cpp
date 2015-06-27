@@ -3,11 +3,11 @@ main.cpp - implement 2-pole / zero filter sections using complex numbers
 jm
 */
 
-#include "./cgain.cpp"
+#include "./cgain.h"
 #include <cmath>
 #include <iostream>
 
-#define LENGTH 100
+#define LENGTH 10
 
 using namespace std;
 
@@ -19,22 +19,41 @@ int main()
     {
         impulse[i] = complex<double>(0.0, 0.0);
     }
-    impulse[0] = complex<double>(0.707, 0.707);
+    impulse[0] = complex<double>(0.707, 0.0);
+    cout<<"-----One Pole -> One Zero Cancellation-----"<<endl;
     complex<double> signal = 0.0;
     complex<double> out = 0.0;
-    OnePoleComplex* filter = new OnePoleComplex;
-    OneZeroComplex* filter0 = new OneZeroComplex;
-    filter->init();
-    filter0->init();
-    filter->setCoefs(1.0, (double)(M_PI/8));
-    filter0->setCoefs(1.0, (double)(-M_PI/8));
+    OnePoleComplex filter;
+    OneZeroComplex filter0;
+    filter.setCoefsPolar(0.5, (double)(M_PI/2));
+    filter0.setCoefsPolar(-0.5, (double)(M_PI/2));
     while(reps--)
     {
         signal = impulse[LENGTH-1-reps];
-        filter->apply(&signal);
-        filter0->apply(&signal);
+        filter.apply(&signal);
+        cout<<"pole: "<<signal<<endl;
+        filter0.apply(&signal);
         out = signal;
-        cout<<out<<endl;
+        cout<<"zero: "<< out<<endl;
+    }
+
+    cout<<"-----Two Pole -> Two Zero 'Cancellation'-----"<<endl;
+    reps = LENGTH;
+    signal = 0.0;
+    out = 0.0;
+    TwoPoleComplex filter1;
+    TwoZeroComplex filter2;
+    filter1.setAllCoefsPolar(1, (double)(M_PI/2));
+    filter2.setAllCoefsPolar(1, -(double)(M_PI/2));
+
+    while(reps--)
+    {
+        signal = impulse[LENGTH-1-reps];
+        filter1.apply(&signal);
+        cout<<"pole: "<<signal<<endl;
+        filter2.apply(&signal);
+        out = signal;
+        cout<<"zero: "<< out<<endl;
     }
     return 0;
 }
