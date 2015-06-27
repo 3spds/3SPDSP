@@ -25,8 +25,8 @@ int main()
     complex<double> out = 0.0;
     OnePoleComplex filter;
     OneZeroComplex filter0;
-    filter.setCoefsPolar(0.5, (double)(M_PI/2));
-    filter0.setCoefsPolar(-0.5, (double)(M_PI/2));
+    filter.setCoefsPolar(1, (double)(M_PI/2));
+    filter0.setCoefsPolar(1, -(double)(M_PI/2));
     while(reps--)
     {
         signal = impulse[LENGTH-1-reps];
@@ -43,8 +43,8 @@ int main()
     out = 0.0;
     TwoPoleComplex filter1;
     TwoZeroComplex filter2;
-    filter1.setAllCoefsPolar(1, (double)(M_PI/2));
-    filter2.setAllCoefsPolar(1, -(double)(M_PI/2));
+    filter1.setAllCoefsPolar(0.5, (double)(M_PI/2));
+    filter2.setAllCoefsPolar(0.5, (double)(M_PI/2));
 
     while(reps--)
     {

@@ -164,11 +164,13 @@ void TwoPoleComplex::setAllRho(double pRho)
 
 void TwoPoleComplex::apply(complex<double>* signal)
 {
-    complex<double> dsignal = *signal;
-    this->poles[0].apply(&dsignal);
+//    complex<double> dsignal = *signal;
+//    this->poles[0].apply(&dsignal);
+//    this->poles[1].apply(signal);
+//    *signal+= dsignal;
+//    *signal*=0.5;
+    this->poles[0].apply(signal);
     this->poles[1].apply(signal);
-    *signal+= dsignal;
-    *signal*=0.5;
 }
 
 
@@ -213,10 +215,13 @@ void TwoZeroComplex::setAllRho(double pRho)
 
 void TwoZeroComplex::apply(complex<double>* signal)
 {
-    complex<double> dsignal = *signal;
-    this->zeros[0].apply(&dsignal);
+    //complex<double> dsignal = *signal;
+    //this->zeros[0].apply(&dsignal);
+    //this->zeros[1].apply(signal);
+    //*signal+= dsignal;
+    //*signal*=0.5;
+    this->zeros[0].apply(signal);
     this->zeros[1].apply(signal);
-    *signal+= dsignal;
-    *signal*=0.5;
+
 }
 
